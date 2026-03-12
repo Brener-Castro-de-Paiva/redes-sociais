@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            text-align: center;
+        }
+        h2 {
+            color: #58a6ff;
+        }
+        hr {
+            border: 1px solid #30363d;
+            margin: 20px 0;
+        }
+        .repository {
+            background-color: #161b22;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            border: 1px solid #30363d;
+        }
+        .repo-name {
+            color: #58a6ff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .repo-desc {
+            color: #8b949e;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .repo-lang {
+            color: #f1e05a;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .profile-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #58a6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .contributions {
+            background-color: #161b22;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #30363d;
+        }
+        .contribution-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            margin-top: 10px;
+        }
+        .contribution-cell {
+            width: 20px;
+            height: 20px;
+            background-color: #161b22;
+            border-radius: 3px;
+        }
+        .contribution-cell.active {
+            background-color: #238636;
+        }
+        .btn {
+            background-color: #238636;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 2px;
+        }
+        .btn:hover {
+            background-color: #2ea043;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <div class="profile-icon">👤</div>
+        <div>
+            <h2>BRENER CASTRO DE PAIVA</h2>
+            <p>@Brener-Castro-de-Paiva</p>
+        </div>
+    </div>
+    
+    <div>
+        <button class="btn">0 followers</button>
+        <button class="btn">3 following</button>
+    </div>
+
+    <hr>
+
+    <h3>📦 Popular repositories</h3>
+    
+    <div class="repository">
+        <div class="repo-name">html-css</div>
+        <div class="repo-desc">Curso de HTML5 e CSS3</div>
+        <div class="repo-lang">● HTML</div>
+    </div>
+
+    <div class="repository">
+        <div class="repo-name">projeto_glass</div>
+        <div class="repo-desc">site projeto</div>
+        <div class="repo-lang">● HTML</div>
+    </div>
+
+    <div class="repository">
+        <div class="repo-name">aula_HTML</div>
+        <div class="repo-desc">aprendendo html5</div>
+        <div class="repo-lang">● HTML</div>
+    </div>
+
+    <div class="repository">
+        <div class="repo-name">Portfolio</div>
+        <div class="repo-desc">Portfolio</div>
+        <div class="repo-lang" style="color: #f1e05a;">● JavaScript</div>
+    </div>
+
+    <div class="repository">
+        <div class="repo-name">mini-site</div>
+        <div class="repo-desc">mini-site</div>
+        <div class="repo-lang">● HTML</div>
+    </div>
+
+    <div class="repository">
+        <div class="repo-name">cordel-moderno</div>
+        <div class="repo-desc">projeto</div>
+        <div class="repo-lang">● HTML</div>
+    </div>
+
+    <hr>
+
+    <div class="contributions">
+        <h3>📊 529 contributions in the last year</h3>
+        <div class="contribution-grid">
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell active"></div>
+            <div class="contribution-cell active"></div>
+        </div>
+        <p style="font-size: 12px; color: #8b949e;">Learn how we count contributions</p>
+    </div>
+</body>
+</html>

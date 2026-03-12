@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #0f0f0f;
+            color: white;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            background-color: #272727;
+            border: 1px solid #3d3d3d;
+            border-radius: 40px;
+            padding: 10px 20px;
+            width: 70%;
+            color: white;
+        }
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 15px;
+        }
+        .channel-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            font-weight: bold;
+        }
+        .channel-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .channel-stats {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .channel-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #272727;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #3d3d3d;
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 30px;
+            border-bottom: 1px solid #3d3d3d;
+            margin: 20px 0;
+        }
+        .nav-tab {
+            padding: 10px 0;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .nav-tab.active {
+            color: white;
+            border-bottom: 3px solid white;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .video-card {
+            display: flex;
+            gap: 10px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .video-thumbnail {
+            width: 160px;
+            height: 90px;
+            background: linear-gradient(135deg, #ff0000, #990000);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        .video-info {
+            flex: 1;
+        }
+        .video-title {
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+        .video-meta {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .views {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <input type="text" class="search-box" placeholder="Pesquisar">
+        <div>🔔</div>
+    </div>
+
+    <div class="channel-info">
+        <div class="channel-icon">B</div>
+        <div style="flex: 1;">
+            <h2 class="channel-name">Brener Castro de Paiva</h2>
+            <div class="channel-stats">@brenercastrodepaiva1357 · 31 inscritos · 6 vídeos</div>
+            <div class="channel-buttons">
+                <button class="btn btn-primary">Personalizar o canal</button>
+                <button class="btn btn-primary">Gerenciar vídeos</button>
+                <button class="btn btn-primary">⋯</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-tab active">Início</div>
+        <div class="nav-tab">Vídeos</div>
+        <div class="nav-tab">Playlists</div>
+        <div class="nav-tab">Posts</div>
+    </div>
+
+    <div class="video-grid">
+        <div class="video-card">
+            <div class="video-thumbnail">▶</div>
+            <div class="video-info">
+                <h4 class="video-title">LGDP burocratização</h4>
+                <div class="video-meta">
+                    195 visualizações · há 3 dias
+                </div>
+                <div class="views">
+                    <span>👍 12</span>
+                    <span>👎 1</span>
+                </div>
+                <p style="color: #aaa; font-size: 13px; margin-top: 5px;">
+                    Visa abordar os pontos de eficácia prática. Sendo propõe.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
