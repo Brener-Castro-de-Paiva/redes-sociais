@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #262626;
+            position: sticky;
+            top: 0;
+            background-color: #000000;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            font-style: italic;
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-icons span {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Stories */
+        .stories {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 1px solid #262626;
+        }
+
+        .stories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 70px;
+        }
+
+        .story-ring {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            border: 2px solid #000000;
+        }
+
+        .story-name {
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+        /* Feed */
+        .feed {
+            padding-bottom: 20px;
+        }
+
+        /* Post */
+        .post {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #262626;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        .post-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #d62976);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .post-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .post-time {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .post-options {
+            font-size: 20px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* Post Image/Content */
+        .post-content {
+            width: 100%;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8e8e8e;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .post-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+            color: white;
+            font-size: 48px;
+        }
+
+        /* Post Actions */
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 16px 10px 16px;
+        }
+
+        .actions-left {
+            display: flex;
+            gap: 16px;
+        }
+
+        .action-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Post Likes */
+        .post-likes {
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        /* Post Caption */
+        .post-caption {
+            padding: 0 16px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .caption-username {
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        /* Comments */
+        .post-comments {
+            padding: 0 16px;
+            color: #8e8e8e;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #262626;
+            margin-bottom: 10px;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-pic-inner {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background-color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 10px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .stat-label {
+            color: #8e8e8e;
+            font-size: 12px;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .profile-bio {
+            font-size: 13px;
+            color: #ffffff;
+        }
+
+        .profile-website {
+            color: #0095f6;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        /* Profile Tabs */
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid #262626;
+            margin-top: 15px;
+        }
+
+        .profile-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            color: #8e8e8e;
+            font-size: 20px;
+        }
+
+        .profile-tab.active {
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        /* Grid de Posts */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            padding: 2px;
+        }
+
+        .grid-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8e8e8e;
+            font-size: 10px;
+        }
+
+        .grid-item.active {
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+            color: white;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid #262626;
+            background-color: #000000;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .nav-icon.active {
+            color: #0095f6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">Instagram</div>
+        <div class="header-icons">
+            <span>❤️</span>
+            <span>💬</span>
+        </div>
+    </div>
+
+    <!-- Stories -->
+    <div class="stories">
+        <div class="story-item">
+            <div class="story-ring">
+                <div class="story-avatar">➕</div>
+            </div>
+            <div class="story-name">Seu story</div>
+        </div>
+        <div class="story-item">
+            <div class="story-ring">
+                <div class="story-avatar">B</div>
+            </div>
+            <div class="story-name">brener.cp</div>
+        </div>
+        <div class="story-item">
+            <div class="story-ring">
+                <div class="story-avatar">📚</div>
+            </div>
+            <div class="story-name">html.css</div>
+        </div>
+        <div class="story-item">
+            <div class="story-ring">
+                <div class="story-avatar">💻</div>
+            </div>
+            <div class="story-name">dev_br</div>
+        </div>
+        <div class="story-item">
+            <div class="story-ring">
+                <div class="story-avatar">🎮</div>
+            </div>
+            <div class="story-name">gamer_br</div>
+        </div>
+    </div>
+
+    <!-- Feed -->
+    <div class="feed">
+        <!-- Post 1 - Brener Castro -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">B</div>
+                    <div>
+                        <span class="post-username">brener.cp</span>
+                        <span class="post-time">• 2h</span>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+            
+            <div class="post-content">
+                <div class="post-image-placeholder">📱</div>
+            </div>
+            
+            <div class="post-actions">
+                <div class="actions-left">
+                    <span class="action-icon">❤️</span>
+                    <span class="action-icon">💬</span>
+                    <span class="action-icon">📤</span>
+                </div>
+                <span class="action-icon">🔖</span>
+            </div>
+            
+            <div class="post-likes">
+                134 curtidas
+            </div>
+            
+            <div class="post-caption">
+                <span class="caption-username">brener.cp</span>
+                Projetos em desenvolvimento! 🚀 #html #css #javascript
+            </div>
+            
+            <div class="post-comments">
+                Ver todos os 12 comentários
+            </div>
+        </div>
+
+        <!-- Post 2 - GitHub -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">🐙</div>
+                    <div>
+                        <span class="post-username">github_br</span>
+                        <span class="post-time">• 5h</span>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+            
+            <div class="post-content">
+                <div class="post-image-placeholder">🐙</div>
+            </div>
+            
+            <div class="post-actions">
+                <div class="actions-left">
+                    <span class="action-icon">❤️</span>
+                    <span class="action-icon">💬</span>
+                    <span class="action-icon">📤</span>
+                </div>
+                <span class="action-icon">🔖</span>
+            </div>
+            
+            <div class="post-likes">
+                89 curtidas
+            </div>
+            
+            <div class="post-caption">
+                <span class="caption-username">github_br</span>
+                Novos repositórios disponíveis! Confira meus projetos no GitHub. 🔥
+            </div>
+            
+            <div class="post-comments">
+                Ver todos os 8 comentários
+            </div>
+        </div>
+
+        <!-- Post 3 - YouTube -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">▶️</div>
+                    <div>
+                        <span class="post-username">youtube_br</span>
+                        <span class="post-time">• 1d</span>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+            
+            <div class="post-content">
+                <div class="post-image-placeholder">🎥</div>
+            </div>
+            
+            <div class="post-actions">
+                <div class="actions-left">
+                    <span class="action-icon">❤️</span>
+                    <span class="action-icon">💬</span>
+                    <span class="action-icon">📤</span>
+                </div>
+                <span class="action-icon">🔖</span>
+            </div>
+            
+            <div class="post-likes">
+                215 curtidas
+            </div>
+            
+            <div class="post-caption">
+                <span class="caption-username">youtube_br</span>
+                Novo vídeo no canal! LGPD e burocratização - Entenda os pontos principais. 📺
+            </div>
+            
+            <div class="post-comments">
+                Ver todos os 15 comentários
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Section (escondida por padrão) -->
+    <div id="profile" style="display: none;">
+        <div class="profile-section">
+            <div class="profile-pic">
+                <div class="profile-pic-inner">B</div>
+            </div>
+            <div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number">42</div>
+                        <div class="stat-label">posts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1.2k</div>
+                        <div class="stat-label">seguidores</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">389</div>
+                        <div class="stat-label">seguindo</div>
+                    </div>
+                </div>
+                <div class="profile-name">Brener Castro</div>
+                <div class="profile-bio">Desenvolvedor web | HTML, CSS, JavaScript</div>
+                <a href="#" class="profile-website">github.com/brener-castro</a>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <div class="profile-tab active">📷</div>
+            <div class="profile-tab">📺</div>
+            <div class="profile-tab">🏷️</div>
+        </div>
+
+        <div class="posts-grid">
+            <div class="grid-item active">📱</div>
+            <div class="grid-item">💻</div>
+            <div class="grid-item">📚</div>
+            <div class="grid-item">🎨</div>
+            <div class="grid-item">📸</div>
+            <div class="grid-item">🎮</div>
+            <div class="grid-item">📝</div>
+            <div class="grid-item">🔧</div>
+            <div class="grid-item">🚀</div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <span class="nav-icon active">🏠</span>
+        <span class="nav-icon">🔍</span>
+        <span class="nav-icon">➕</span>
+        <span class="nav-icon">❤️</span>
+        <span class="nav-icon">👤</span>
+    </div>
+
+    <script>
+        // Simples interação para mostrar o profile ao clicar no ícone do perfil
+        const profileIcon = document.querySelector('.nav-icon:last-child');
+        const feed = document.querySelector('.feed');
+        const profile = document.getElementById('profile');
+        
+        profileIcon.addEventListener('click', function() {
+            if (feed.style.display !== 'none') {
+                feed.style.display = 'none';
+                profile.style.display = 'block';
+                this.classList.add('active');
+            } else {
+                feed.style.display = 'block';
+                profile.style.display = 'none';
+                this.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

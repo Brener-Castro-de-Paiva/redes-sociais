@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* Header */
+        .header {
+            background-color: #4267b2;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .facebook-logo {
+            background-color: #fff;
+            color: #4267b2;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .search-box {
+            background-color: #f0f2f5;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 12px;
+            width: 180px;
+            font-size: 14px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            color: white;
+        }
+
+        .header-icons span {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Stories */
+        .stories-section {
+            background-color: white;
+            padding: 12px;
+            margin: 8px 0;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .stories-section::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story-card {
+            min-width: 90px;
+            height: 150px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4267b2, #2d4880);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .story-card.create {
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .story-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9;
+        }
+
+        .story-avatar {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 3px solid #4267b2;
+            background: linear-gradient(135deg, #f09433, #d62976);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .story-avatar.create {
+            border: none;
+            background: #f0f2f5;
+            color: #4267b2;
+            font-size: 24px;
+        }
+
+        .story-name {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .story-name.create {
+            color: #1c1e21;
+            text-shadow: none;
+        }
+
+        .create-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #4267b2;
+        }
+
+        /* Feed */
+        .feed {
+            padding: 8px;
+        }
+
+        /* Post Box */
+        .post-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .post-input-area {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-bottom: 1px solid #e4e6eb;
+            padding-bottom: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f09433, #d62976);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .post-input {
+            flex: 1;
+            background-color: #f0f2f5;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .post-input:hover {
+            background-color: #e4e6eb;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 8px;
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #606770;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .post-action:hover {
+            background-color: #f0f2f5;
+        }
+
+        .post-action.live {
+            color: #f02849;
+        }
+
+        .post-action.photo {
+            color: #45bd62;
+        }
+
+        .post-action.feeling {
+            color: #f7b928;
+        }
+
+        /* Post */
+        .post {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .post-header {
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-user {
+            display: flex;
+            gap: 10px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f09433, #d62976);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-name {
+            font-weight: 600;
+            color: #1c1e21;
+            font-size: 14px;
+        }
+
+        .post-time {
+            color: #606770;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .post-privacy {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-options {
+            color: #606770;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .post-content {
+            padding: 0 12px 12px 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .post-media {
+            width: 100%;
+            margin: 12px 0;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+        }
+
+        .media-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .media-item.github {
+            background: linear-gradient(135deg, #0d1117, #161b22);
+            color: #58a6ff;
+        }
+
+        .media-item.youtube {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+        }
+
+        .media-item.instagram {
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+            color: white;
+        }
+
+        .media-item.twitter {
+            background-color: #1DA1F2;
+            color: white;
+        }
+
+        .post-stats {
+            padding: 12px;
+            border-bottom: 1px solid #e4e6eb;
+            display: flex;
+            justify-content: space-between;
+            color: #606770;
+            font-size: 13px;
+        }
+
+        .reactions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .reaction-icons {
+            display: flex;
+        }
+
+        .reaction-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4267b2;
+            border: 1px solid white;
+            margin-right: -4px;
+        }
+
+        .reaction-icon.like {
+            background-color: #4267b2;
+        }
+
+        .reaction-icon.heart {
+            background-color: #f02849;
+        }
+
+        .post-actions-row {
+            padding: 4px 12px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .post-action-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #606770;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .post-action-btn:hover {
+            background-color: #f0f2f5;
+        }
+
+        .post-action-btn.liked {
+            color: #4267b2;
+        }
+
+        /* Contacts Sidebar */
+        .contacts-section {
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 12px;
+            padding: 12px;
+        }
+
+        .contacts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #606770;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            background-color: #f0f2f5;
+        }
+
+        .contact-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f09433, #d62976);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .online-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #31a24c;
+            border: 1px solid white;
+        }
+
+        .contact-name {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Pages */
+        .pages-section {
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 12px;
+            padding: 12px;
+        }
+
+        .page-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+        }
+
+        .page-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4267b2, #2d4880);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Menu */
+        .menu-section {
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 12px;
+            padding: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: #1c1e21;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background-color: #f0f2f5;
+        }
+
+        /* Create Room */
+        .create-room {
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+        }
+
+        .room-btn {
+            background-color: #e7f3ff;
+            border: 1px solid #d0e5ff;
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: #216fdb;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .friend-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f09433, #d62976);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            border: 2px solid #d0e5ff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-area">
+            <div class="facebook-logo">f</div>
+            <input type="text" class="search-box" placeholder="Pesquisar no Facebook">
+        </div>
+        <div class="header-icons">
+            <span>🏠</span>
+            <span>👥</span>
+            <span>📺</span>
+            <span>👤</span>
+            <span>🔔</span>
+            <span>💬</span>
+        </div>
+    </div>
+
+    <!-- Stories -->
+    <div class="stories-section">
+        <div class="story-card create">
+            <div class="create-icon">➕</div>
+            <div class="story-avatar create">👤</div>
+            <div class="story-name create">Criar story</div>
+        </div>
+        <div class="story-card">
+            <div class="story-bg" style="background: linear-gradient(135deg, #4267b2, #2d4880);"></div>
+            <div class="story-avatar">B</div>
+            <div class="story-name">Brener</div>
+        </div>
+        <div class="story-card">
+            <div class="story-bg" style="background: linear-gradient(135deg, #0d1117, #161b22);"></div>
+            <div class="story-avatar">🐙</div>
+            <div class="story-name">GitHub</div>
+        </div>
+        <div class="story-card">
+            <div class="story-bg" style="background: linear-gradient(135deg, #ff0000, #cc0000);"></div>
+            <div class="story-avatar">▶️</div>
+            <div class="story-name">YouTube</div>
+        </div>
+        <div class="story-card">
+            <div class="story-bg" style="background: linear-gradient(45deg, #f09433, #d62976, #962fbf);"></div>
+            <div class="story-avatar">📷</div>
+            <div class="story-name">Instagram</div>
+        </div>
+    </div>
+
+    <!-- Create Room -->
+    <div class="create-room">
+        <div class="room-btn">🎥 Criar sala</div>
+        <div class="friend-avatar">👤</div>
+        <div class="friend-avatar">🐙</div>
+        <div class="friend-avatar">▶️</div>
+        <div class="friend-avatar">📷</div>
+        <div class="friend-avatar">🐦</div>
+    </div>
+
+    <!-- Feed -->
+    <div class="feed">
+        <!-- Post Box -->
+        <div class="post-box">
+            <div class="post-input-area">
+                <div class="user-avatar">B</div>
+                <div class="post-input">No que você está pensando, Brener?</div>
+            </div>
+            <div class="post-actions">
+                <div class="post-action live">
+                    <span>🔴</span> Ao vivo
+                </div>
+                <div class="post-action photo">
+                    <span>📷</span> Foto
+                </div>
+                <div class="post-action feeling">
+                    <span>😊</span> Sentimento
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 1 - GitHub -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">🐙</div>
+                    <div class="post-info">
+                        <div class="post-name">GitHub</div>
+                        <div class="post-time">
+                            <span>2 h · </span>
+                            <span class="post-privacy">🌎 Público</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+
+            <div class="post-content">
+                <strong>Novos repositórios disponíveis!</strong> Confira os projetos mais recentes da comunidade. Destaque para o mini-site do Brener Castro que está incrível! 🚀
+            </div>
+
+            <div class="post-media">
+                <div class="media-grid">
+                    <div class="media-item github">🐙</div>
+                    <div class="media-item github">📁</div>
+                    <div class="media-item github">💻</div>
+                    <div class="media-item github">🔧</div>
+                </div>
+            </div>
+
+            <div class="post-stats">
+                <div class="reactions">
+                    <span class="reaction-icons">
+                        <span class="reaction-icon like"></span>
+                        <span class="reaction-icon heart"></span>
+                    </span>
+                    234
+                </div>
+                <div>45 comentários · 12 compartilhamentos</div>
+            </div>
+
+            <div class="post-actions-row">
+                <div class="post-action-btn">
+                    <span>👍</span> Curtir
+                </div>
+                <div class="post-action-btn">
+                    <span>💬</span> Comentar
+                </div>
+                <div class="post-action-btn">
+                    <span>📤</span> Compartilhar
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 2 - Brener sobre YouTube -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">B</div>
+                    <div class="post-info">
+                        <div class="post-name">Brener Castro</div>
+                        <div class="post-time">
+                            <span>5 h · </span>
+                            <span class="post-privacy">🌎 Público</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+
+            <div class="post-content">
+                🎥 <strong>Novo vídeo no YouTube!</strong><br><br>
+                Hoje vamos falar sobre LGPD e burocratização - entendendo os pontos principais da nova lei. 
+                Link nos comentários! 📺 #LGPD #DireitoDigital #Tecnologia
+            </div>
+
+            <div class="post-media">
+                <div class="media-item youtube" style="aspect-ratio: 16/9; font-size: 48px;">
+                    ▶️ LGDP burocratização
+                </div>
+            </div>
+
+            <div class="post-stats">
+                <div class="reactions">
+                    <span class="reaction-icons">
+                        <span class="reaction-icon like"></span>
+                        <span class="reaction-icon heart"></span>
+                    </span>
+                    89
+                </div>
+                <div>12 comentários · 8 compartilhamentos</div>
+            </div>
+
+            <div class="post-actions-row">
+                <div class="post-action-btn liked">
+                    <span>👍</span> Curtir
+                </div>
+                <div class="post-action-btn">
+                    <span>💬</span> Comentar
+                </div>
+                <div class="post-action-btn">
+                    <span>📤</span> Compartilhar
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 3 - Instagram -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">📷</div>
+                    <div class="post-info">
+                        <div class="post-name">Instagram</div>
+                        <div class="post-time">
+                            <span>8 h · </span>
+                            <span class="post-privacy">🌎 Público</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+
+            <div class="post-content">
+                📸 <strong>Novos posts de Brener Castro!</strong><br><br>
+                Confira os bastidores do desenvolvimento dos projetos HTML e CSS. 
+                Muito código e criatividade! 🔥
+            </div>
+
+            <div class="post-media">
+                <div class="media-grid">
+                    <div class="media-item instagram">📱</div>
+                    <div class="media-item instagram">💻</div>
+                    <div class="media-item instagram">📚</div>
+                    <div class="media-item instagram">🎨</div>
+                </div>
+            </div>
+
+            <div class="post-stats">
+                <div class="reactions">
+                    <span class="reaction-icons">
+                        <span class="reaction-icon heart"></span>
+                        <span class="reaction-icon like"></span>
+                    </span>
+                    156
+                </div>
+                <div>23 comentários · 5 compartilhamentos</div>
+            </div>
+
+            <div class="post-actions-row">
+                <div class="post-action-btn">
+                    <span>👍</span> Curtir
+                </div>
+                <div class="post-action-btn">
+                    <span>💬</span> Comentar
+                </div>
+                <div class="post-action-btn">
+                    <span>📤</span> Compartilhar
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 4 - Twitter -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">🐦</div>
+                    <div class="post-info">
+                        <div class="post-name">Twitter Brasil</div>
+                        <div class="post-time">
+                            <span>1 d · </span>
+                            <span class="post-privacy">🌎 Público</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+
+            <div class="post-content">
+                🐦 <strong>Em alta no Twitter!</strong><br><br>
+                O assunto do momento é desenvolvimento web! 
+                Brener Castro está entre os assuntos mais comentados com seus projetos de HTML e CSS. 
+                #HTML5 #CSS3 #Dev
+            </div>
+
+            <div class="post-stats">
+                <div class="reactions">
+                    <span class="reaction-icons">
+                        <span class="reaction-icon like"></span>
+                    </span>
+                    412
+                </div>
+                <div>67 comentários · 31 compartilhamentos</div>
+            </div>
+
+            <div class="post-actions-row">
+                <div class="post-action-btn">
+                    <span>👍</span> Curtir
+                </div>
+                <div class="post-action-btn">
+                    <span>💬</span> Comentar
+                </div>
+                <div class="post-action-btn">
+                    <span>📤</span> Compartilhar
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 5 - Cordel Moderno -->
+        <div class="post">
+            <div class="post-header">
+                <div class="post-user">
+                    <div class="post-avatar">B</div>
+                    <div class="post-info">
+                        <div class="post-name">Brener Castro</div>
+                        <div class="post-time">
+                            <span>3 d · </span>
+                            <span class="post-privacy">🌎 Público</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-options">⋯</div>
+            </div>
+
+            <div class="post-content">
+                📚 <strong>Projeto Cordel Moderno finalizado!</strong><br><br>
+                Desenvolvi um site sobre o Cordel Moderno com animações e design responsivo. 
+                Quem aí também ama literatura de cordel? 
+            </div>
+
+            <div class="post-stats">
+                <div class="reactions">
+                    <span class="reaction-icons">
+                        <span class="reaction-icon heart"></span>
+                        <span class="reaction-icon like"></span>
+                    </span>
+                    189
+                </div>
+                <div>34 comentários · 12 compartilhamentos</div>
+            </div>
+
+            <div class="post-actions-row">
+                <div class="post-action-btn">
+                    <span>👍</span> Curtir
+                </div>
+                <div class="post-action-btn">
+                    <span>💬</span> Comentar
+                </div>
+                <div class="post-action-btn">
+                    <span>📤</span> Compartilhar
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contacts Section -->
+    <div class="contacts-section">
+        <div class="contacts-header">
+            <span>Contatos</span>
+            <span>🔍 ⋯</span>
+        </div>
+        <div class="contact-item">
+            <div class="contact-avatar">
+                🐙
+                <span class="online-indicator"></span>
+            </div>
+            <div class="contact-name">GitHub</div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-avatar">
+                ▶️
+                <span class="online-indicator"></span>
+            </div>
+            <div class="contact-name">YouTube</div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-avatar">
+                📷
+                <span class="online-indicator"></span>
+            </div>
+            <div class="contact-name">Instagram</div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-avatar">
+                🐦
+            </div>
+            <div class="contact-name">Twitter</div>
+        </div>
+    </div>
+
+    <!-- Pages Section -->
+    <div class="pages-section">
+        <div class="contacts-header">
+            <span>Suas páginas</span>
+        </div>
+        <div class="page-item">
+            <div class="page-avatar">B</div>
+            <div class="contact-name">Brener Dev</div>
+        </div>
+        <div class="page-item">
+            <div class="page-avatar">📱</div>
+            <div class="contact-name">Projetos Sociais</div>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="menu-section">
+        <div class="menu-item">
+            <span>👥</span> Grupos
+        </div>
+        <div class="menu-item">
+            <span>📺</span> Watch
+        </div>
+        <div class="menu-item">
+            <span>📅</span> Eventos
+        </div>
+        <div class="menu-item">
+            <span>📱</span> Marketplace
+        </div>
+        <div class="menu-item">
+            <span>🎮</span> Jogos
+        </div>
+    </div>
+
+    <script>
+        // Interação com os botões de curtir
+        const likeButtons = document.querySelectorAll('.post-action-btn:first-child');
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('liked')) {
+                    this.classList.remove('liked');
+                    this.innerHTML = '<span>👍</span> Curtir';
+                } else {
+                    this.classList.add('liked');
+                    this.innerHTML = '<span>👍</span> Curtido';
+                }
+            });
+        });
+
+        // Interação com a caixa de post
+        const postInput = document.querySelector('.post-input');
+        postInput.addEventListener('click', function() {
+            alert('O que você está pensando? (Simulação)');
+        });
+    </script>
+</body>
+</html>
