@@ -7,7 +7,6 @@
 }
 
 html, body{
-
     height: 100vh;
     width: 100vw;
     background-color: blueviolet;
@@ -15,24 +14,23 @@ html, body{
 
 body{
     background: url(../imagens/fundo-madeira.jpg) no-repeat top center;
-    background-size:  cover;
+    background-size: cover;
     background-attachment: fixed;
 }
 
 main{
-    position:relative;
+    position: relative;
     height: 100vh;
-   }
+}
 
 section#telefone{
     position: absolute;
     top: 50%;
     left: 50%;
-    
     transform: translate(-50%,-50%);
     height: 627px;
     width: 311px;
-    background: url(../imagens/frame-iphone.png)no-repeat;
+    background: url(../imagens/frame-iphone.png) no-repeat;
 }
 
 iframe#tela {
@@ -41,16 +39,30 @@ iframe#tela {
     left: 23px;
     width: 265px;
     height: 471px;
-    
 }
 
-section#redes-sociais img{
-
-        width: 50px;
-        margin: 10px;
-        
+/* Ajustes para os ícones das redes sociais */
+section#redes-sociais {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Posiciona na lateral direita */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    display: flex;
+    flex-direction: column; /* Coloca os ícones em coluna (um embaixo do outro) */
+    gap: 15px; /* Espaçamento entre os ícones */
 }
 
+section#redes-sociais img {
+    width: 60px; /* Tamanho dos ícones */
+    border-radius: 50%; /* Deixa as imagens redondas */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Sombra suave */
+    transition: transform 0.3s, box-shadow 0.3s, border 0.2s; /* Transição suave */
+    box-sizing: border-box; /* Mantém o tamanho mesmo com borda */
+}
 
-
-
+/* Efeito ao passar o mouse */
+section#redes-sociais img:hover {
+    transform: translateY(-5px) scale(1.1); /* Eleva e aumenta levemente */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5); /* Sombra mais forte */
+    border: 2px solid white; /* Borda branca ao redor */
+}
